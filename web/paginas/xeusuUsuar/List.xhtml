@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListXeusuUsuarTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="XeusuUsuarListForm">
+                <p:panel header="#{bundle.ListXeusuUsuarTitle}">
+                    <p:dataTable id="datalist" value="#{xeusuUsuarController.items}" var="item"
+                                 selectionMode="single" selection="#{xeusuUsuarController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.xeusuUsuarPK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_xeusuUsuarPK_xeusuCodigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.xeusuUsuarPK.xeusuCodigo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_xeusuNick}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.xeusuNick}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_xeusuClave}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.xeusuClave}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_xeusuFechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.xeusuFechaCreacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_peempEmpleado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.peempEmpleado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_xeuestCodigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.xeuestCodigo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListXeusuUsuarTitle_xeperCodigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.xeperCodigo}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{xeusuUsuarController.prepareCreate}" update=":XeusuUsuarCreateForm" oncomplete="PF('XeusuUsuarCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":XeusuUsuarViewForm" oncomplete="PF('XeusuUsuarViewDialog').show()" disabled="#{empty xeusuUsuarController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":XeusuUsuarEditForm" oncomplete="PF('XeusuUsuarEditDialog').show()" disabled="#{empty xeusuUsuarController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{xeusuUsuarController.destroy}" update=":growl,datalist" disabled="#{empty xeusuUsuarController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

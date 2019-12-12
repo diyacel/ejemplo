@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PerfilOpcionCreateDlg" widgetVar="PerfilOpcionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePerfilOpcionTitle}">
+            <h:form id="PerfilOpcionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{perfilOpcionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePerfilOpcionLabel_popFechaAsignacion}" for="popFechaAsignacion" />
+                        <p:calendar id="popFechaAsignacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{perfilOpcionController.selected.popFechaAsignacion}" title="#{bundle.EditPerfilOpcionTitle_popFechaAsignacion}" required="true" requiredMessage="#{bundle.EditPerfilOpcionRequiredMessage_popFechaAsignacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePerfilOpcionLabel_xeopcCodigo}" for="xeopcCodigo" />
+                        <p:selectOneMenu id="xeopcCodigo" value="#{perfilOpcionController.selected.xeopcCodigo}" required="true" requiredMessage="#{bundle.EditPerfilOpcionRequiredMessage_xeopcCodigo}">
+                            <f:selectItems value="#{xeOpcOpcionController.itemsAvailableSelectOne}"
+                                           var="xeopcCodigoItem"
+                                           itemValue="#{xeopcCodigoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePerfilOpcionLabel_xeperCodigo}" for="xeperCodigo" />
+                        <p:selectOneMenu id="xeperCodigo" value="#{perfilOpcionController.selected.xeperCodigo}" required="true" requiredMessage="#{bundle.EditPerfilOpcionRequiredMessage_xeperCodigo}">
+                            <f:selectItems value="#{xeperPerfilController.itemsAvailableSelectOne}"
+                                           var="xeperCodigoItem"
+                                           itemValue="#{xeperCodigoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{perfilOpcionController.create}" value="#{bundle.Save}" update="display,:PerfilOpcionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PerfilOpcionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PerfilOpcionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

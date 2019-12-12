@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    </h:head>
+<h:body style="text-align:center">
+  <p:growl id="mensajes" showDetail="true" life="2000" />
+  <h:form>
+    <p:panel id="panel" header="MONSTER-FLY" style="width: 400px; position:relative;left:40%;margin-left:-100px">
+        <h:graphicImage value = "/resources/img/avion.png" width="200" height="70"/>
+      <h:panelGrid columns="2" cellpadding="5" styleClass="centered">
+        <h:outputLabel for="username" value="Usuario:" />
+        <p:inputText value="#{loginBean.nombre}" id="username"
+           required="true" label="username" />
+        <h:outputLabel for="password" value="Clave:" />
+        <p:password value="#{loginBean.clave}" id="password" required="true"
+           label="password" />
+        <f:facet name="footer">
+          <p:commandButton id="loginButton" value="Login"
+             actionListener="#{loginBean.login}" update=":mensajes"
+             oncomplete="manejarLogin(xhr, status, args)" />
+        </f:facet>
+      </h:panelGrid>
+    </p:panel>
+  </h:form>
+</h:body>
+
+</html>

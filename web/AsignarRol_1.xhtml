@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template/Principal.xhtml">
+       <ui:define name="bodyJR">
+           
+    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+        <p:outputLabel for="@next" value="Perfil:" />
+        <p:selectOneMenu id="perfil" value="#{xeperPerfilController.items}" style="width:210px" >
+            <f:selectItem itemLabel="Selecione un perfil" itemValue="" />
+            <!--<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />-->
+            <f:selectItems value="#{xeperPerfilController.getNombres()}"/>
+        </p:selectOneMenu>
+    </h:panelGrid>
+           <h:panelGroup rendered="#{xeperPerfilController.nombres == 'Administrador'}">
+                    <h3>Administrador</h3>
+                    <h6 align="center">Asignar perfil de ADMINISTRADOR a usuarios</h6>
+
+                    <p:pickList id="adminPickList" value="#{xeusuUsuarController.items}" var="user" effect="bounce"
+                                itemValue="#{user}" itemLabel="#{user}" showCheckbox="true" filterMatchMode="contains"  >
+
+                        <f:facet name="sourceCaption">Disponibles</f:facet>
+                        <f:facet name="targetCaption">Asignados</f:facet>
+                    </p:pickList>
+                    <div align="right">
+                        <p:commandButton value="Guardar cambios" icon="fa fa-save" style="margin: 10px" action="#{xeusuUsuariBean.actualizarPerfilAdm()}" update="editUser"></p:commandButton>
+                        <p:commandButton value="Cancelar" icon="fa fa-ban" style="margin: 10px" action="#{xeusuUsuariBean.cancelEdit()}" update="editUser"></p:commandButton>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{xeusuUsuariBean.perfil == 'Empleado'}">
+                    <h3>Empleado</h3>
+                    <hr style="background-color: #ffffff"/>
+                    <h6 align="center">Asignar perfil de EMPLEADO a usuarios</h6>
+                    <p:pickList id="empPickList" value="#{xeusuUsuariBean.usuariosPickListEmple}" var="user" effect="bounce"
+                                itemValue="#{user}" itemLabel="#{user}" showCheckbox="true" filterMatchMode="contains"  >
+
+                        <f:facet name="sourceCaption">Disponibles</f:facet>
+                        <f:facet name="targetCaption">Asignados</f:facet>
+                    </p:pickList>
+                    <div align="right">
+                        <p:commandButton value="Guardar cambios" icon="fa fa-save" style="margin: 10px" action="#{xeusuUsuariBean.actualizarPerfilEmp()}" update="editUser"></p:commandButton>
+                        <p:commandButton value="Cancelar" icon="fa fa-ban" style="margin: 10px" action="#{xeusuUsuariBean.cancelEdit()}" update="editUser"></p:commandButton>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{xeusuUsuariBean.perfil == 'Usuario'}" >
+                    <h3>Usuario</h3>
+                    <hr style="background-color: #ffffff"/>
+                    <h6 align="center">Asignar perfil de USUARIO a usuarios</h6>
+                    <p:pickList id="usuPickList" value="#{xeusuUsuariBean.usuariosPickListUsr}" var="user" effect="bounce"
+                                itemValue="#{user}" itemLabel="#{user}" showCheckbox="true" filterMatchMode="contains"  >
+
+                        <f:facet name="sourceCaption">Disponibles</f:facet>
+                        <f:facet name="targetCaption">Asignados</f:facet>
+                    </p:pickList>
+                    <div align="right">
+                        <p:commandButton value="Guardar cambios" icon="fa fa-save" style="margin: 10px" action="#{xeusuUsuariBean.actualizarPerfilUsr()}" update="editUser"></p:commandButton>
+                        <p:commandButton value="Cancelar" icon="fa fa-ban" style="margin: 10px" action="#{xeusuUsuariBean.cancelEdit()}" update="editUser"></p:commandButton>
+                    </div>
+                </h:panelGroup>
+                        
+    
+               
+          </ui:define>
+        </ui:composition>
+</html>
+

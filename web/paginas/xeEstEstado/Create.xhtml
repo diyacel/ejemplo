@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="XeEstEstadoCreateDlg" widgetVar="XeEstEstadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateXeEstEstadoTitle}">
+            <h:form id="XeEstEstadoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{xeEstEstadoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateXeEstEstadoLabel_xeuestCodigo}" for="xeuestCodigo" />
+                        <p:inputText id="xeuestCodigo" value="#{xeEstEstadoController.selected.xeuestCodigo}" title="#{bundle.CreateXeEstEstadoTitle_xeuestCodigo}" required="true" requiredMessage="#{bundle.CreateXeEstEstadoRequiredMessage_xeuestCodigo}"/>
+                        <p:outputLabel value="#{bundle.CreateXeEstEstadoLabel_xeuestNombre}" for="xeuestNombre" />
+                        <p:inputText id="xeuestNombre" value="#{xeEstEstadoController.selected.xeuestNombre}" title="#{bundle.CreateXeEstEstadoTitle_xeuestNombre}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{xeEstEstadoController.create}" value="#{bundle.Save}" update="display,:XeEstEstadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'XeEstEstadoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="XeEstEstadoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

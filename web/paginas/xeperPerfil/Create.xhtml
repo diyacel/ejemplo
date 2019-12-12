@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="XeperPerfilCreateDlg" widgetVar="XeperPerfilCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateXeperPerfilTitle}">
+            <h:form id="XeperPerfilCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{xeperPerfilController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateXeperPerfilLabel_xeperCodigo}" for="xeperCodigo" />
+                        <p:inputText id="xeperCodigo" value="#{xeperPerfilController.selected.xeperCodigo}" title="#{bundle.CreateXeperPerfilTitle_xeperCodigo}" required="true" requiredMessage="#{bundle.CreateXeperPerfilRequiredMessage_xeperCodigo}"/>
+                        <p:outputLabel value="#{bundle.CreateXeperPerfilLabel_xeperNombre}" for="xeperNombre" />
+                        <p:inputText id="xeperNombre" value="#{xeperPerfilController.selected.xeperNombre}" title="#{bundle.CreateXeperPerfilTitle_xeperNombre}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{xeperPerfilController.create}" value="#{bundle.Save}" update="display,:XeperPerfilListForm:datalist,:growl" oncomplete="handleSubmit(args,'XeperPerfilCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="XeperPerfilCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

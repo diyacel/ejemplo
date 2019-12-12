@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RolUsuarioCreateDlg" widgetVar="RolUsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRolUsuarioTitle}">
+            <h:form id="RolUsuarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rolUsuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRolUsuarioLabel_rusFechaAsignacion}" for="rusFechaAsignacion" />
+                        <p:calendar id="rusFechaAsignacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{rolUsuarioController.selected.rusFechaAsignacion}" title="#{bundle.EditRolUsuarioTitle_rusFechaAsignacion}" required="true" requiredMessage="#{bundle.EditRolUsuarioRequiredMessage_rusFechaAsignacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateRolUsuarioLabel_xerolCodigo}" for="xerolCodigo" />
+                        <p:selectOneMenu id="xerolCodigo" value="#{rolUsuarioController.selected.xerolCodigo}" required="true" requiredMessage="#{bundle.EditRolUsuarioRequiredMessage_xerolCodigo}">
+                            <f:selectItems value="#{xerolRolController.itemsAvailableSelectOne}"
+                                           var="xerolCodigoItem"
+                                           itemValue="#{xerolCodigoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRolUsuarioLabel_xeperCodigo}" for="xeperCodigo" />
+                        <p:selectOneMenu id="xeperCodigo" value="#{rolUsuarioController.selected.xeperCodigo}" required="true" requiredMessage="#{bundle.EditRolUsuarioRequiredMessage_xeperCodigo}">
+                            <f:selectItems value="#{xeperPerfilController.itemsAvailableSelectOne}"
+                                           var="xeperCodigoItem"
+                                           itemValue="#{xeperCodigoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolUsuarioController.create}" value="#{bundle.Save}" update="display,:RolUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'RolUsuarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RolUsuarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
